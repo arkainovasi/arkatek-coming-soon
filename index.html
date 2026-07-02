@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arkatek — Segera Hadir</title>
+  <meta name="description" content="Arkatek sedang membangun rumah digital barunya. Solusi web & sistem custom yang tepat sasaran untuk bisnismu, segera hadir di arkatek.co.id." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Arkatek — Segera Hadir" />
+  <meta property="og:description" content="Bantu bisnis kamu tumbuh lewat solusi digital yang tepat sasaran. Segera hadir." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://arkatek.co.id" />
+
+  <!-- TODO: ganti favicon ini dengan file logo asli begitu tersedia -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230F172A'/%3E%3Ctext x='50' y='68' font-size='54' font-family='monospace' font-weight='700' fill='%233B82F6' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS v4 (Play CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <style type="text/tailwindcss">
+    @theme {
+      --color-primary: #0F172A;
+      --color-secondary: #3B82F6;
+      --color-accent: #F59E0B;
+      --color-surface: #F8FAFC;
+      --color-text: #1E293B;
+
+      --font-display: "Space Grotesk", sans-serif;
+      --font-body: "Manrope", sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
+    }
+
+    html {
+      font-family: var(--font-body);
+    }
+
+    @keyframes orb-float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(24px, -28px) scale(1.06); }
+    }
+    @keyframes blink-cursor {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes bar-slide {
+      0% { transform: translateX(-110%); }
+      100% { transform: translateX(340%); }
+    }
+
+    .orb { animation: orb-float 11s ease-in-out infinite; }
+    .orb-b { animation-duration: 14s; animation-delay: -6s; }
+    .orb-c { animation-duration: 9s; animation-delay: -2s; }
+
+    .cursor-blink { animation: blink-cursor 1s step-end infinite; }
+
+    .fade-up { opacity: 0; animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .delay-1 { animation-delay: 0.05s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.4s; }
+    .delay-4 { animation-delay: 0.6s; }
+    .delay-5 { animation-delay: 0.85s; }
+
+    .bar-slide { animation: bar-slide 1.7s ease-in-out infinite; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .orb, .cursor-blink, .fade-up, .bar-slide {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+
+    [x-cloak] { display: none !important; }
+  </style>
+
+  <!-- Alpine JS -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body
+  class="relative min-h-screen overflow-x-hidden bg-primary font-body text-surface antialiased selection:bg-secondary/30"
+  x-data="pageRoot()"
+  @mousemove.window="handleMouse($event)"
+>
+  <!-- Latar gradien ambient -->
+  <div
+    class="pointer-events-none fixed inset-0 -z-10"
+    :style="reducedMotion ? '' : `transform: translate(${mx}px, ${my}px)`"
+    aria-hidden="true"
+  >
+    <div class="orb absolute -top-32 -left-24 h-96 w-96 rounded-full bg-secondary/25 blur-3xl"></div>
+    <div class="orb orb-b absolute top-1/3 -right-28 h-[28rem] w-[28rem] rounded-full bg-accent/15 blur-3xl"></div>
+    <div class="orb orb-c absolute bottom-[-6rem] left-1/4 h-80 w-80 rounded-full bg-secondary/10 blur-3xl"></div>
+  </div>
+
+  <!-- Pola titik halus, kesan grid blueprint -->
+  <div
+    class="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle,_rgba(248,250,252,0.06)_1px,_transparent_1px)] bg-[length:28px_28px]"
+    aria-hidden="true"
+  ></div>
+
+  <div class="relative flex min-h-screen flex-col">
+    <!-- Header -->
+    <header class="fade-up delay-1 flex items-center justify-between px-6 py-6 sm:px-10 sm:py-8">
+      <div class="flex items-center gap-2">
+        <!-- TODO: ganti span ini dengan <img src="logo.svg" alt="Arkatek" class="h-7 w-auto sm:h-8"> saat logo sudah tersedia -->
+        <span class="font-display text-xl font-bold tracking-tight text-surface sm:text-2xl">
+          ARKA<span class="text-accent">·</span>TEK
+        </span>
+      </div>
+      <span class="hidden font-mono text-xs text-surface/40 sm:inline-block">
+        // arkatek.co.id
+      </span>
+    </header>
+
+    <!-- Hero -->
+    <main class="flex flex-1 flex-col items-center justify-center px-6 py-14 text-center sm:px-10">
+      <!-- Eyebrow -->
+      <div class="fade-up delay-1 mb-7 inline-flex items-center gap-2 rounded-full border border-surface/10 bg-surface/[0.04] px-4 py-1.5 font-mono text-xs text-secondary backdrop-blur-sm">
+        <span class="relative flex h-1.5 w-1.5" aria-hidden="true">
+          <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75"></span>
+          <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent"></span>
+        </span>
+        <span>// sedang dalam pengembangan</span>
+      </div>
+
+      <!-- Headline -->
+      <h1 class="fade-up delay-2 max-w-3xl text-balance font-display text-4xl font-bold leading-[1.12] tracking-tight text-surface sm:text-5xl md:text-6xl">
+        Sedang kami rangkai,<br class="hidden sm:block" />
+        khusus untuk bisnismu.
+      </h1>
+
+      <!-- Subheadline -->
+      <p class="fade-up delay-3 mt-5 max-w-xl text-balance font-body text-base text-surface/65 sm:text-lg">
+        Bantu bisnis kamu tumbuh lewat solusi digital yang tepat sasaran.
+      </p>
+
+      <!-- Panel terminal -->
+      <div class="fade-up delay-4 mt-10 w-full max-w-xl overflow-hidden rounded-xl border border-surface/10 bg-surface/[0.03] text-left shadow-2xl shadow-secondary/10 backdrop-blur-sm">
+        <div class="flex items-center gap-1.5 border-b border-surface/10 px-4 py-3" aria-hidden="true">
+          <span class="h-2.5 w-2.5 rounded-full bg-surface/15"></span>
+          <span class="h-2.5 w-2.5 rounded-full bg-surface/15"></span>
+          <span class="h-2.5 w-2.5 rounded-full bg-surface/15"></span>
+          <span class="ml-2 font-mono text-[11px] text-surface/35">build.sh</span>
+        </div>
+
+        <div class="p-5 font-mono text-[12.5px] leading-relaxed sm:text-sm" x-data="terminalTyper()" x-init="init()">
+          <template x-for="(line, i) in lines" :key="i">
+            <div x-show="displayed[i] !== undefined" class="flex gap-2 py-0.5" x-cloak>
+              <span :class="line.color" x-text="line.prefix" class="shrink-0"></span>
+              <span class="text-surface/75" x-text="displayed[i]"></span>
+            </div>
+          </template>
+
+          <div x-show="allDone" x-cloak class="mt-2 flex items-center gap-2">
+            <span class="text-secondary">$</span>
+            <span class="cursor-blink text-surface/70">▍</span>
+          </div>
+
+          <div x-show="allDone" x-cloak aria-hidden="true" class="mt-4 h-1 w-full overflow-hidden rounded-full bg-surface/10">
+            <div class="bar-slide h-full w-1/3 rounded-full bg-gradient-to-r from-secondary to-accent"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="fade-up delay-5 mt-10 flex flex-col items-center gap-3">
+        <span class="font-mono text-xs text-surface/40">// ikuti prosesnya</span>
+        <a
+          href="https://www.instagram.com/arkatek.id"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Buka Instagram Arkatek di tab baru"
+          class="group inline-flex items-center rounded-full bg-gradient-to-r from-secondary to-accent p-[1.5px] transition-transform duration-300 hover:scale-[1.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
+        >
+          <span class="flex items-center gap-2.5 rounded-full bg-primary px-5 py-2.5 font-body text-sm font-semibold text-surface transition-colors duration-300 group-hover:bg-primary/80">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+              <circle cx="12" cy="12" r="4"></circle>
+              <circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" stroke="none"></circle>
+            </svg>
+            @arkatek.id
+          </span>
+        </a>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="fade-up delay-5 px-6 py-6 text-center sm:px-10">
+      <p class="font-mono text-[11px] text-surface/30">
+        // © <span x-text="year"></span> PT Arka Inovasi Teknologi — Semua hak dilindungi.
+      </p>
+    </footer>
+  </div>
+
+  <script>
+    function pageRoot() {
+      return {
+        reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+        mx: 0,
+        my: 0,
+        year: new Date().getFullYear(),
+        handleMouse(e) {
+          if (this.reducedMotion) return;
+          const cx = window.innerWidth / 2;
+          const cy = window.innerHeight / 2;
+          this.mx = ((e.clientX - cx) / cx) * 16;
+          this.my = ((e.clientY - cy) / cy) * 16;
+        }
+      };
+    }
+
+    function terminalTyper() {
+      return {
+        lines: [
+          { prefix: '$', color: 'text-secondary', text: 'php artisan build:website --target=arkatek.co.id' },
+          { prefix: '✓', color: 'text-secondary', text: 'Menyusun kebutuhan bisnismu' },
+          { prefix: '✓', color: 'text-secondary', text: 'Merancang antarmuka yang ramah pengguna' },
+          { prefix: '⧗', color: 'text-accent', text: 'Menulis baris kode, satu demi satu...' }
+        ],
+        displayed: [],
+        allDone: false,
+        init() {
+          const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          if (reduced) {
+            this.displayed = this.lines.map((l) => l.text);
+            this.allDone = true;
+            return;
+          }
+          this.typeLines();
+        },
+        async typeLines() {
+          for (const line of this.lines) {
+            let current = '';
+            this.displayed.push(current);
+            const idx = this.displayed.length - 1;
+            for (const char of line.text) {
+              current += char;
+              this.displayed[idx] = current;
+              await new Promise((r) => setTimeout(r, 16));
+            }
+            await new Promise((r) => setTimeout(r, 260));
+          }
+          this.allDone = true;
+        }
+      };
+    }
+  </script>
+</body>
+</html>
